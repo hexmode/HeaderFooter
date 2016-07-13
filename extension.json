@@ -13,6 +13,12 @@
 		"getheaderfooter": "ApiGetHeaderFooter"
 	},
 	"Hooks": {
+		"SkinTemplateOutputPageBeforeExec": [
+			"HeaderFooter::onSkinTemplateOutputPageBeforeExec"
+		],
+		"SkinOutBeforePersonalTools": [
+			"HeaderFooter::onSkinOutBeforePersonalTools"
+		],
 		"OutputPageParserOutput": "HeaderFooter::hOutputPageParserOutput",
 		"ResourceLoaderGetConfigVars": "HeaderFooter::onResourceLoaderGetConfigVars"
 	},
