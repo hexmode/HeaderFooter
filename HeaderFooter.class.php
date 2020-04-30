@@ -30,7 +30,6 @@ class HeaderFooter
 		$msgText = !$msgNs->isDisabled()
 				 ? $msgNs->inContentLanguage()
 				 : $msg->inContentLanguage();
-
 		echo $msgText;
 		return true;
 	}
@@ -43,6 +42,17 @@ class HeaderFooter
 		if ( !self::shouldUse( $out ) ) {
 			return true;
 		}
+		$namespace = $out->getTitle()->getNsText();
+		$nsMsgText = wfMessage( 'hf-sticky-header-' . $namespace )->inContentLanguage();
+		if ( $nsMsgText->isDisabled() ) {
+			$nsMsgText = wfMessage( 'hf-sticky-header' )->inContentLanguage();
+		}
+		if ( !$nsMsgText->isDisabled() ) {
+			$header = Xml::tags( "div", [ 'id' => 'hfStickyHeader' ],
+									$nsMsgText->parse() );
+			$tpl->set( 'sitenotice', $tpl->get( 'sitenotice' ) . $header );
+		}
+
 		$msgText = wfMessage( 'hf-top-header' )->inContentLanguage();
 		if ( $msgText->isDisabled() ) {
 			return true;
